@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface MissionRepository extends JpaRepository<Mission,Long> {
     @Query("SELECT m FROM Mission m " +
-            "JOIN FETCH m.member mem " +
-            "WHERE mem.id = :memberId " +
-            "AND m.status = 0 " +
+            "WHERE m.id NOT IN (" +
+            "SELECT mm.mission.id FROM MemberMission mm WHERE mm.member.id = :memberId" +
+            ") " +
+            "AND m.status = 'IN_PROGRESS' " +
             "ORDER BY m.id DESC")
     List<Mission> findAvailableMissionsByMember(@Param("memberId") Long memberId);
+
 }

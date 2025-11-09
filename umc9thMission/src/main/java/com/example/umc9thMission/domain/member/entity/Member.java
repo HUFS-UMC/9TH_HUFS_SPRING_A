@@ -5,12 +5,15 @@ import com.example.umc9thMission.domain.mission.entity.MemberMission;
 import com.example.umc9thMission.domain.mission.entity.Mission;
 import com.example.umc9thMission.domain.review.entity.Review;
 import com.example.umc9thMission.global.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 
 @Entity
@@ -42,6 +45,7 @@ public class Member extends BaseEntity {
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Review> reviewList=new ArrayList<>();
 

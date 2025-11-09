@@ -1,6 +1,7 @@
 package com.example.umc9thMission.domain.mission.entity;
 
 import com.example.umc9thMission.domain.member.entity.Member;
+import com.example.umc9thMission.domain.mission.enums.MissionStatus;
 import com.example.umc9thMission.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,5 +30,10 @@ public class MemberMission extends BaseEntity {
 
     @Column(name="earn_point", nullable = false)
     private int earnedPoint;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MissionStatus status;
+
 
 }

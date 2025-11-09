@@ -6,6 +6,8 @@ import com.example.umc9thMission.domain.review.enums.Rating;
 import com.example.umc9thMission.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 
 import java.time.LocalDateTime;
@@ -21,10 +23,12 @@ public class Review extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id", nullable = false)
     private Member member;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="restaurant_id", nullable = false)
     private Restaurant restaurant;
@@ -32,6 +36,11 @@ public class Review extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "rating", nullable = false)
     private Rating rating;
+
+    public Rating getRating() {
+        return rating;
+    }
+
 
     @Column(name = "body", columnDefinition = "TEXT", nullable = false)
     private String body;

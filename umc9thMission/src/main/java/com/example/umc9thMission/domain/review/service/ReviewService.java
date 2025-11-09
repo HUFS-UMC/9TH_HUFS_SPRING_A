@@ -10,24 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
-    @Transactional
-    public Review createReview(Member member, Restaurant restaurant, Rating rating, String body){
-        Review review=Review.builder()
-                .member(member)
-                .restaurant(restaurant)
-                .rating(rating)
-                .body(body)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        return reviewRepository.save(review);
+    public List<Review> getMyReviews(Long memberId, String restaurantName, Rating rating){
+        return reviewRepository.findMyReviews(memberId,restaurantName,rating);
     }
-
-
 }

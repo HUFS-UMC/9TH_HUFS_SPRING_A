@@ -3,6 +3,7 @@ package com.example.umc9thMission.domain.restaurant.entity;
 import com.example.umc9thMission.domain.restaurant.enums.FoodCategory;
 import com.example.umc9thMission.domain.review.entity.Review;
 import com.example.umc9thMission.global.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,7 @@ public class Restaurant extends BaseEntity {
     @Column(name = "category", nullable = false)
     private FoodCategory category;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Review> reviewList= new ArrayList<>();
 
