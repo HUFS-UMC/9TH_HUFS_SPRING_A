@@ -1,6 +1,7 @@
 package com.example.umc_workbook.domain.member.entity;
 
 import com.example.umc_workbook.domain.member.entity.mapping.MemberFood;
+import com.example.umc_workbook.domain.member.entity.mapping.MemberTerm;
 import com.example.umc_workbook.domain.member.enums.Gender;
 import com.example.umc_workbook.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -50,6 +51,6 @@ public class Member extends BaseEntity {
     private List<MemberFood> memberFoodList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<MemberFood> memberTermList = new ArrayList<>();
+    private List<MemberTerm> memberTermList = new ArrayList<>();
 
 }
