@@ -1,7 +1,10 @@
 package com.example.umc_workbook.domain.apitest.exeption;
 
-public class TestException extends RuntimeException {
-  public TestException(String message) {
-    super(message);
-  }
+import com.example.umc_workbook.global.apiPayload.code.BaseErrorCode;
+import com.example.umc_workbook.global.apiPayload.exception.GeneralException;
+
+public class TestException extends GeneralException {
+    public TestException(BaseErrorCode code) {
+        super(code);
+    }
 }

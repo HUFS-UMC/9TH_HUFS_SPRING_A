@@ -49,4 +49,8 @@ public class Mission {
     void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    public void setStore(Store store) {
+
+    }
 }

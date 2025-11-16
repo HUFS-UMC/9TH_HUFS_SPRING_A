@@ -1,13 +1,17 @@
 package com.example.umc_workbook.global.apiPayload;
 
+import com.example.umc_workbook.domain.apitest.dto.res.TestResDTO;
 import com.example.umc_workbook.global.apiPayload.code.BaseErrorCode;
 import com.example.umc_workbook.global.apiPayload.code.BaseSuccessCode;
+import com.example.umc_workbook.global.apiPayload.code.GeneralSuccessCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @JsonPropertyOrder({"isSuccess", "code", "message", "result"})
 public class ApiResponse<T> {
@@ -24,11 +28,20 @@ public class ApiResponse<T> {
     @JsonProperty("result")
     private T result;
 
-    // 성공한 경우 (result 포함)
+
 
     // 실패한 경우 (result 포함)
     public static <T> ApiResponse<T> onFailure(BaseErrorCode code, T result) {
         return new ApiResponse<>(false, code.getCode(), code.getMessage(), result);
+    }
+    // 성공한 경우 (result 포함)
+    public static <T> ApiResponse<T> onSuccess(GeneralSuccessCode code, T data) {
+        return ApiResponse.<T>builder()
+                .isSuccess(true)
+                .code(code.getCode())
+                .message(code.getMessage())
+                .result(data)
+                .build();
     }
 }
 
