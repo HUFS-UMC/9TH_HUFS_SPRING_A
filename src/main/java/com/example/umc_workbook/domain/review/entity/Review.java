@@ -62,4 +62,8 @@ public class Review {
     public void addReply(Reply reply) {
         this.reviewContents.add(reply);
     }
+
+    public void setStore(Store store) {
+
+    }
 }
