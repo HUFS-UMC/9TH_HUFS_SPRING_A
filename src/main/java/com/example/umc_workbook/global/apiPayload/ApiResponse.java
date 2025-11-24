@@ -1,8 +1,6 @@
 package com.example.umc_workbook.global.apiPayload;
 
-import com.example.umc_workbook.domain.apitest.dto.res.TestResDTO;
 import com.example.umc_workbook.global.apiPayload.code.BaseErrorCode;
-import com.example.umc_workbook.global.apiPayload.code.BaseSuccessCode;
 import com.example.umc_workbook.global.apiPayload.code.GeneralSuccessCode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -35,12 +33,11 @@ public class ApiResponse<T> {
         return new ApiResponse<>(false, code.getCode(), code.getMessage(), result);
     }
     // 성공한 경우 (result 포함)
-    public static <T> ApiResponse<T> onSuccess(GeneralSuccessCode code, T data) {
+    public static <T> ApiResponse<T> onSuccess(GeneralSuccessCode code) {
         return ApiResponse.<T>builder()
                 .isSuccess(true)
                 .code(code.getCode())
                 .message(code.getMessage())
-                .result(data)
                 .build();
     }
 }
