@@ -41,8 +41,8 @@ public class Member extends BaseEntity {
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
 
-    @Column(name = "address", nullable = true)
-    private RabbitConnectionDetails.Address address;
+    //@Column(name = "address", nullable = true)
+    //private ;
 
     @Column (name = "detailAddress", nullable = false)
     private String detailAddress;

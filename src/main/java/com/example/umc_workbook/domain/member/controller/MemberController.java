@@ -21,6 +21,6 @@ public class MemberController {
     public ApiResponse<MemberResDTO.JoinDTO> signUp(
             @RequestBody MemberReqDTO.JoinDTO dto
     ){
-        return ApiResponse.onSuccess(MemberSuccessCode.FOUND, memberCommandService.signup(dto));
+     return null;
     }
 }
