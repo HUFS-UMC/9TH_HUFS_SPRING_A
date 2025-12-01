@@ -6,6 +6,7 @@ import com.example.umc_workbook.domain.member.enums.Gender;
 import com.example.umc_workbook.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +23,7 @@ import java.util.List;
 @Getter
 @Table(name = "member")
 @EntityListeners(AuditingEntityListener.class)
+
 public class Member extends BaseEntity {
 
     @Id
@@ -38,6 +40,12 @@ public class Member extends BaseEntity {
 
     @Column(name = "birth", nullable = false)
     private LocalDate birth;
+
+    @Column(name = "address", nullable = true)
+    private RabbitConnectionDetails.Address address;
+
+    @Column (name = "detailAddress", nullable = false)
+    private String detailAddress;
 
     @CreatedDate
     @Column(name = "create_at", nullable = false)

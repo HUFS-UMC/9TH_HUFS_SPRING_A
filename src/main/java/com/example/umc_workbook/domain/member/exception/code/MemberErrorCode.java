@@ -1,4 +1,4 @@
-package com.example.umc_workbook.domain.apitest.exeption.code;
+package com.example.umc_workbook.domain.member.exception.code;
 
 import com.example.umc_workbook.global.apiPayload.code.BaseErrorCode;
 import lombok.AllArgsConstructor;
@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum TestErrorCode implements BaseErrorCode {
-
-    // For test
-    TEST_EXCEPTION(HttpStatus.BAD_REQUEST, "TEST400_1", "이거는 테스트"),
+public enum MemberErrorCode implements BaseErrorCode {
+    NOT_FOUND(HttpStatus.NOT_FOUND,
+            "MEMBER404_1",
+            "해당 사용자를 찾지 못했습니다."),
     ;
 
     private final HttpStatus status;
