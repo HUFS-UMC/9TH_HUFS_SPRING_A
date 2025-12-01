@@ -1,7 +1,9 @@
 package com.example.umc_workbook.domain.review.service;
 
 import com.example.umc_workbook.domain.review.entity.Review;
+import org.springframework.data.domain.Page;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface ReviewService {
@@ -14,4 +16,8 @@ public interface ReviewService {
 
     // 회원별 리뷰 조회
     List<Review> getReviewsByMember(Long memberId);
+
+    // 내가 작성한 리뷰 목록 조회
+    Page<Review> findByMemberId(Long memberId, Pageable pageable);
+
 }

@@ -12,7 +12,7 @@ public class MemberConverter {
     ){
         return MemberResDTO.JoinDTO.builder()
                 .memberId(member.getId())
-                .createAt(member.getCreatedAt())
+
                 .build();
     }
 
@@ -23,7 +23,7 @@ public class MemberConverter {
         return Member.builder()
                 .name(dto.name())
                 .birth(dto.birth())
-                .address(dto.address())
+                //.address(dto.address())
                 .detailAddress(dto.specAddress())
                 .gender(dto.gender())
                 .build();

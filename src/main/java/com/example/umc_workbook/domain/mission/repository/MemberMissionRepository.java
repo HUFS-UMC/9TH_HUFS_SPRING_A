@@ -78,4 +78,6 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
             @Param("complete") Boolean complete,
             Pageable pageable
     );
+    Page<MemberMission> findByMemberIdAndIsComplete(Long memberId, Boolean isComplete, Pageable pageable);
+
 }

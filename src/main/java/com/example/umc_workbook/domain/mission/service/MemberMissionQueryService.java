@@ -1,11 +1,14 @@
 package com.example.umc_workbook.domain.mission.service;
 
+import com.example.umc_workbook.domain.mission.dto.MyMissionResponse;
 import com.example.umc_workbook.domain.mission.entity.mapping.MemberMission;
 import com.example.umc_workbook.domain.mission.repository.MemberMissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,4 +31,40 @@ public class MemberMissionQueryService {
     public Page<MemberMission> getMyMissions(Long memberId, Boolean complete, Pageable pageable) {
         return memberMissionRepository.findAllByMemberIdAndStatus(memberId, complete, pageable);
     }
+    public List<MyMissionResponse> getMyOngoingMissions(Long memberId, int pageIndex) {
+        PageRequest pageable = PageRequest.of(pageIndex, 10);
+
+        Page<MemberMission> page =
+                memberMissionRepository.findByMemberIdAndIsComplete(memberId, false, pageable);
+
+        return page.getContent().stream()
+                .map(mm -> MyMissionResponse.builder()
+                        .memberMissionId(mm.getId())
+                        .missionId(mm.getMission().getId())
+                        .storeName(mm.getMission().getStore().getName())
+                        .conditional(mm.getMission().getConditional())
+                        .point(mm.getMission().getPoint())
+                        .deadline(mm.getMission().getDeadline())
+                        .isComplete(mm.getIsComplete())
+                        .build())
+                .toList();
+    }
+    public <MissionStatusUpdateResponse> MissionStatusUpdateResponse completeMission(Long memberId, Long memberMissionId) {
+
+        MemberMission mm = memberMissionRepository.findById(memberMissionId)
+                .orElseThrow(() -> new IllegalArgumentException("미션이 존재하지 않습니다."));
+
+        if (!mm.getMember().getId().equals(memberId)) {
+            throw new IllegalArgumentException("본인 미션만 완료할 수 있습니다.");
+        }
+
+        mm.setIsComplete(true);
+
+        return MissionStatusUpdateResponse.builder()
+                .memberMissionId(mm.getId())
+                .missionId(mm.getMission().getId())
+                .isComplete(mm.getIsComplete())
+                .build();
+    }
+
 }
