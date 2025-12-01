@@ -49,5 +49,22 @@ public class MemberMissionQueryService {
                         .build())
                 .toList();
     }
+    public <MissionStatusUpdateResponse> MissionStatusUpdateResponse completeMission(Long memberId, Long memberMissionId) {
+
+        MemberMission mm = memberMissionRepository.findById(memberMissionId)
+                .orElseThrow(() -> new IllegalArgumentException("미션이 존재하지 않습니다."));
+
+        if (!mm.getMember().getId().equals(memberId)) {
+            throw new IllegalArgumentException("본인 미션만 완료할 수 있습니다.");
+        }
+
+        mm.setIsComplete(true);
+
+        return MissionStatusUpdateResponse.builder()
+                .memberMissionId(mm.getId())
+                .missionId(mm.getMission().getId())
+                .isComplete(mm.getIsComplete())
+                .build();
+    }
 
 }
