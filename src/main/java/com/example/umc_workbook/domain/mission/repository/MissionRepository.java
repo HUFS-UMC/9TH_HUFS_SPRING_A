@@ -76,4 +76,6 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
         """)
     long countCompleted(@Param("memberId") Long memberId);
 
+    Page<Mission> findByStoreId(Long storeId, Pageable pageable);
+
 }
